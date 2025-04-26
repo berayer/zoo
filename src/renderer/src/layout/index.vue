@@ -1,24 +1,31 @@
 <script setup lang="ts">
 import {
   SidebarProvider,
-  SidebarTrigger,
   Sidebar,
   SidebarGroup,
   SidebarContent,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarHeader,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarInset,
 } from '@/components/ui/sidebar'
-import { Separator } from '@/components/ui/separator'
-import { XIcon } from 'lucide-vue-next'
-import { Button } from '@/components/ui/button'
+import { RouterLink, useRoute } from 'vue-router'
+import { BoxesIcon, Settings2Icon } from 'lucide-vue-next'
+import { watch } from 'vue'
+import { useTitle } from '@vueuse/core'
 
-function closeWin() {
-  window.electron.ipcRenderer.send('win:invoke', 'close')
-}
+const route = useRoute()
+
+watch(
+  () => route.path,
+  () => {
+    let title = ''
+    for (const it of route.matched) {
+      title += title ? ` | ${it.meta.title}` : it.meta.title || 'zoo'
+    }
+    useTitle(title)
+  },
+)
 </script>
 
 <template>
@@ -29,14 +36,20 @@ function closeWin() {
           <SidebarGroup>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <span>应用中心</span>
-                </SidebarMenuButton>
+                <RouterLink to="/apps">
+                  <SidebarMenuButton>
+                    <BoxesIcon class="mr-2" />
+                    <span>应用中心</span>
+                  </SidebarMenuButton>
+                </RouterLink>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <span>全局配置</span>
-                </SidebarMenuButton>
+                <RouterLink to="/settings">
+                  <SidebarMenuButton>
+                    <Settings2Icon class="mr-2" />
+                    <span>全局配置</span>
+                  </SidebarMenuButton>
+                </RouterLink>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroup>

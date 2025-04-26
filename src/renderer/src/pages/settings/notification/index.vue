@@ -3,5 +3,5 @@
 </script>
 
 <template>
-  <div>home</div>
+  <div>notification config</div>
 </template>

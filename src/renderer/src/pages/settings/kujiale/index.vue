@@ -3,5 +3,5 @@
 </script>
 
 <template>
-  <div>about</div>
+  <div>kujiale config</div>
 </template>
