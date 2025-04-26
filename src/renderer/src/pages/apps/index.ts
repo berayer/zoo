@@ -92,3 +92,5 @@ export const apps = [
     desc: 'Easily integrate WhatsApp for direct messaging.',
   },
 ]
+
+export type AppsType = typeof apps
