@@ -5,33 +5,29 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Separator } from '@/components/ui/separator'
 import { AArrowUpIcon, AArrowDownIcon, SlidersHorizontalIcon, SettingsIcon } from 'lucide-vue-next'
 import { apps } from '.'
-import type { AppsType } from '.'
+import type { RouteRecordRaw } from 'vue-router'
 import { ref, watch } from 'vue'
 import { ScrollArea } from '@/components/ui/scroll-area'
-
-const appText = new Map<string, string>([
-  ['all', 'All Apps'],
-  ['connected', 'Connected'],
-  ['notConnected', 'Not Connected'],
-])
+import { Card, CardDescription, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { RouterLink } from 'vue-router'
 
 const sort = ref('ascending')
-const appType = ref('all')
 const searchTerm = ref('')
 
-const filteredApps = ref<AppsType>(apps)
+const filteredApps = ref<RouteRecordRaw[]>(apps)
 
 function handleFilter(): void {
   filteredApps.value = apps
-    .sort((a, b) => (sort.value === 'ascending' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)))
-    .filter((app) =>
-      appType.value === 'connected' ? app.connected : appType.value === 'notConnected' ? !app.connected : true,
+    .sort((a, b) =>
+      sort.value === 'ascending'
+        ? a.meta!.title!.localeCompare(b.meta!.title!)
+        : b.meta!.title!.localeCompare(a.meta!.title!),
     )
-    .filter((app) => app.name.toLowerCase().includes(searchTerm.value.toLowerCase()))
+    .filter((app) => app.meta?.title!.toLowerCase().includes(searchTerm.value.toLowerCase()))
 }
 
 watch(
-  () => [sort.value, appType.value],
+  () => sort.value,
   () => {
     handleFilter()
   },
@@ -53,7 +49,7 @@ watch(
           class="h-9 w-40 lg:w-[250px]"
           :onchange="handleFilter"
         />
-        <Select v-model:model-value="appType">
+        <!-- <Select v-model:model-value="appType">
           <SelectTrigger class="w-36">
             <SelectValue>{{ appText.get(appType) }}</SelectValue>
           </SelectTrigger>
@@ -62,7 +58,7 @@ watch(
             <SelectItem value="connected">Connected</SelectItem>
             <SelectItem value="notConnected">Not Connected</SelectItem>
           </SelectContent>
-        </Select>
+        </Select> -->
       </div>
 
       <div class="flex gap-2">
@@ -94,25 +90,23 @@ watch(
     </div>
     <Separator class="mx-4 shadow-sm" />
     <ScrollArea class="h-full overflow-auto px-4" style="contain: size">
-      <ul class="faded-bottom no-scrollbar grid gap-4 overflow-auto pt-4 pb-16 md:grid-cols-2 lg:grid-cols-3">
-        <li v-for="app in filteredApps" :key="app.name" class="rounded-lg border p-4 hover:shadow-md">
-          <div class="mb-8 flex items-center justify-between">
-            <div :class="`bg-muted flex size-10 items-center justify-center rounded-lg p-2`">
-              <component :is="app.logo"></component>
-            </div>
-            <Button
-              variant="outline"
-              size="sm"
-              :class="`${app.connected ? 'border border-blue-300 bg-blue-50 hover:bg-blue-100 dark:border-blue-700 dark:bg-blue-950 dark:hover:bg-blue-900' : ''}`"
-            >
-              {{ app.connected ? 'Connected' : 'Connect' }}
-            </Button>
-          </div>
-          <div>
-            <h2 class="mb-1 font-semibold">{{ app.name }}</h2>
-            <p class="line-clamp-2 text-gray-500">{{ app.desc }}</p>
-          </div>
-        </li>
+      <ul
+        class="faded-bottom no-scrollbar grid gap-4 overflow-auto pt-4 pb-16 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
+      >
+        <RouterLink v-for="app in filteredApps" :key="app.name" :to="app.path">
+          <Card class="cursor-pointer hover:shadow-md">
+            <CardHeader>
+              <CardTitle>{{ app.meta?.title }}</CardTitle>
+              <CardDescription>{{ app.meta?.desc }} </CardDescription>
+            </CardHeader>
+            <CardContent class="flex-1"></CardContent>
+            <CardFooter class="justify-between text-sm text-gray-600">
+              <span>2025-03-27</span>
+              <span>zbx</span>
+              <span>69</span>
+            </CardFooter>
+          </Card>
+        </RouterLink>
         <li v-if="filteredApps.length === 0">
           <span class="text-gray-500">无数据</span>
         </li>

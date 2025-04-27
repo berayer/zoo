@@ -1,96 +1,40 @@
-import { BellIcon } from 'lucide-vue-next'
+import { BotIcon } from 'lucide-vue-next'
 
 export const apps = [
   {
-    name: 'Telegram',
-    logo: BellIcon,
-    connected: false,
-    desc: 'Connect with Telegram for real-time communication.',
+    path: '/apps/auto-add-color',
+    component: () => import('@/pages/apps/auto-add-color/index.vue'),
+    meta: {
+      title: '自动添加花色',
+      icon: BotIcon,
+      desc: '识别字符串中包含的花色, 使用自动程序添加为条件',
+    },
   },
   {
-    name: 'Notion',
-    logo: BellIcon,
-    connected: true,
-    desc: 'Effortlessly sync Notion pages for seamless collaboration.',
+    path: '/apps/3vjia-exploder',
+    component: () => import('@/pages/apps/3vjia-exploder/index.vue'),
+    meta: {
+      title: '三维家模型管理',
+      icon: BotIcon,
+      desc: '三维家模型管理, 快捷移动目录以及查询',
+    },
   },
   {
-    name: 'Figma',
-    logo: BellIcon,
-    connected: true,
-    desc: 'View and collaborate on Figma designs in one place.',
+    path: '/apps/kujiale-data-export',
+    component: () => import('@/pages/apps/kujiale-data-export/index.vue'),
+    meta: {
+      title: '酷家乐数据导出',
+      icon: BotIcon,
+      desc: '通过酷家乐api导出数据',
+    },
   },
   {
-    name: 'Trello',
-    logo: BellIcon,
-    connected: false,
-    desc: 'Sync Trello cards for streamlined project management.',
-  },
-  {
-    name: 'Slack',
-    logo: BellIcon,
-    connected: false,
-    desc: 'Integrate Slack for efficient team communication',
-  },
-  {
-    name: 'Zoom',
-    logo: BellIcon,
-    connected: true,
-    desc: 'Host Zoom meetings directly from the dashboard.',
-  },
-  {
-    name: 'Stripe',
-    logo: BellIcon,
-    connected: false,
-    desc: 'Easily manage Stripe transactions and payments.',
-  },
-  {
-    name: 'Gmail',
-    logo: BellIcon,
-    connected: true,
-    desc: 'Access and manage Gmail messages effortlessly.',
-  },
-  {
-    name: 'Medium',
-    logo: BellIcon,
-    connected: false,
-    desc: 'Explore and share Medium stories on your dashboard.',
-  },
-  {
-    name: 'Skype',
-    logo: BellIcon,
-    connected: false,
-    desc: 'Connect with Skype contacts seamlessly.',
-  },
-  {
-    name: 'Docker',
-    logo: BellIcon,
-    connected: false,
-    desc: 'Effortlessly manage Docker containers on your dashboard.',
-  },
-  {
-    name: 'GitHub',
-    logo: BellIcon,
-    connected: false,
-    desc: 'Streamline code management with GitHub integration.',
-  },
-  {
-    name: 'GitLab',
-    logo: BellIcon,
-    connected: false,
-    desc: 'Efficiently manage code projects with GitLab integration.',
-  },
-  {
-    name: 'Discord',
-    logo: BellIcon,
-    connected: false,
-    desc: 'Connect with Discord for seamless team communication.',
-  },
-  {
-    name: 'WhatsApp',
-    logo: BellIcon,
-    connected: false,
-    desc: 'Easily integrate WhatsApp for direct messaging.',
+    path: '/apps/liansi-export',
+    component: () => import('@/pages/apps/liansi-export/index.vue'),
+    meta: {
+      title: '联思数据导出',
+      icon: BotIcon,
+      desc: '联思统计数据导出Excel',
+    },
   },
 ]
-
-export type AppsType = typeof apps

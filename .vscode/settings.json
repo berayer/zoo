@@ -9,7 +9,11 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "cSpell.words": [
+    "kujiale",
+    "liansi",
     "lucide",
+    "tanstack",
+    "vjia",
     "vueuse"
   ]
 }

@@ -1,5 +1,6 @@
 import { createWebHashHistory, createRouter } from 'vue-router'
 import { settingsRoute } from '@/pages/settings'
+import { apps } from '@/pages/apps'
 
 const routes = [
   {
@@ -14,6 +15,7 @@ const routes = [
     },
   },
   settingsRoute,
+  ...apps,
 ]
 
 export const router = createRouter({
