@@ -62,9 +62,11 @@ watch(
       </div>
 
       <div class="flex gap-2">
-        <RouterLink to="/settings"
-          ><Button variant="ghost" size="icon"><SettingsIcon /></Button
-        ></RouterLink>
+        <RouterLink to="/settings">
+          <Button variant="ghost" size="icon">
+            <SettingsIcon />
+          </Button>
+        </RouterLink>
         <Select v-model:model-value="sort">
           <SelectTrigger class="w-16">
             <SelectValue>
@@ -94,10 +96,10 @@ watch(
         class="faded-bottom no-scrollbar grid gap-4 overflow-auto pt-4 pb-16 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
       >
         <RouterLink v-for="app in filteredApps" :key="app.name" :to="app.path">
-          <Card class="cursor-pointer hover:shadow-md">
+          <Card class="h-full cursor-pointer hover:shadow-md">
             <CardHeader>
               <CardTitle>{{ app.meta?.title }}</CardTitle>
-              <CardDescription>{{ app.meta?.desc }} </CardDescription>
+              <CardDescription>{{ app.meta?.desc }}</CardDescription>
             </CardHeader>
             <CardContent class="flex-1"></CardContent>
             <CardFooter class="justify-between text-sm text-gray-600">

@@ -17,6 +17,7 @@ function createWindow(): void {
       sandbox: false,
     },
   })
+  mainWindow.removeMenu()
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
